@@ -360,3 +360,61 @@ padding: 0;
   .contact-text { display: none; }
   .contact-item { padding: 8px; }
 }
+
+
+/* ============================
+   ANIMAZIONI JAVASCRIPT
+   ============================ */
+
+/* Stato iniziale: invisibile e spostato leggermente in basso */
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease-out; /* Durata dell'animazione: 1 secondo */
+}
+
+/* Stato finale: visibile e nella posizione originale */
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Effetto hover extra per i giorni con eventi nel calendario */
+.day.event:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #008cff;
+    transition: 0.3s;
+    z-index: 2; /* Porta l'elemento in primo piano */
+}
+
+/* ============================
+   AGGIUNTE INTERATTIVE
+   ============================ */
+
+/* 1. Effetto "Lift" (Sollevamento) per TUTTI i giorni */
+.day {
+    transition: transform 0.3s ease, background-color 0.3s; /* Animazione fluida */
+    cursor: default; /* Cursore standard per i giorni vuoti */
+}
+
+.day:hover {
+    transform: translateY(-7px); /* Si alza di 7 pixel */
+    background: rgba(255, 255, 255, 0.1); /* Diventa leggermente più chiaro */
+}
+
+/* Stile della finestrella (Tooltip) */
+.custom-tooltip {
+    position: absolute; /* Assoluto rispetto alla pagina */
+    background-color: #141414; /* Sfondo scuro */
+    color: #7ee7c7; /* Testo verde acqua */
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none; /* Il mouse non ci sbatte contro */
+    z-index: 99999; /* Z-INDEX ALTISSIMO per stare sopra a tutto */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.8); /* Ombra forte */
+    border: 2px solid #7ee7c7; /* Bordo colorato visibile */
+    display: none; /* Nascosto di default */
+    white-space: nowrap;
+}

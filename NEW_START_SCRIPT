@@ -1,0 +1,62 @@
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Controllo se il codice è partito
+    console.log("Script caricato correttamente! 🚀");
+
+    // 1. Creiamo la finestrella (Tooltip)
+    const tooltip = document.createElement('div');
+    tooltip.className = 'custom-tooltip';
+    tooltip.innerText = "Oggi ci sono le prove 🎸";
+    
+    // FONDAMENTALE: Aggiungiamo la finestrella al BODY del sito
+    document.body.appendChild(tooltip); 
+
+    // 2. Selezioniamo i giorni con eventi
+    const eventDays = document.querySelectorAll('.day.event');
+
+    if (eventDays.length === 0) {
+        console.error("ATTENZIONE: Non ho trovato nessun giorno con classe '.day.event'!");
+    } else {
+        console.log(`Trovati ${eventDays.length} giorni con eventi.`);
+    }
+
+    eventDays.forEach(day => {
+        // Cursore
+        day.style.cursor = 'help'; 
+
+        // Mouse entra: mostra
+        day.addEventListener('mouseenter', () => {
+            tooltip.style.display = 'block';
+        });
+
+        // Mouse si muove: segue il cursore
+        day.addEventListener('mousemove', (e) => {
+            // Calcoliamo la posizione basata sulla pagina intera
+            tooltip.style.left = (e.pageX + 15) + 'px';
+            tooltip.style.top = (e.pageY + 15) + 'px';
+        });
+
+        // Mouse esce: nascondi
+        day.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+        
+        // Click: alert (opzionale)
+        day.addEventListener('click', () => {
+             alert(`Dettaglio Evento:\nData: ${day.innerText} Dicembre\nLuogo: Sala Prove`);
+        });
+    });
+
+    // --- ANIMAZIONI SCROLL (Lasciamo invariato) ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.home-wrapper, .calendar-container, .contact-row, .slogan')
+            .forEach(el => {
+                el.classList.add('hidden');
+                observer.observe(el);
+            });
+});
